@@ -1,0 +1,10 @@
+# werf.yaml:
+configVersion: 1
+project: telegram-forwarder
+deploy:
+  namespace: "telegram-forwarder"
+
+---
+image: telegramForwarder
+dockerfile: Dockerfile
+
