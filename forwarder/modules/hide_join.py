@@ -14,9 +14,9 @@ async def join_hider(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
     await m.delete()
 
 JOIN_HIDE_HANDLER = MessageHandler(
-    filters.Chat([d for source in CONFIG for d in source["destination"] ])
+    filters.Chat([d for source in CONFIG for d in source["destination"]])
     & ~filters.COMMAND
-    & filters.StatusUpdate.NEW_CHAT_MEMBERS,
+    & (filters.StatusUpdate.NEW_CHAT_MEMBERS | filters.StatusUpdate.LEFT_CHAT_MEMBER),
     join_hider,
 )
 bot.add_handler(JOIN_HIDE_HANDLER)

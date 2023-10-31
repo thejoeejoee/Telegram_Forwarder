@@ -19,7 +19,7 @@ def parse_topic(chat_id: Union[str, int]) -> ChatConfig:
 
 
 def get_source() -> List[ChatConfig]:
-    return [parse_topic(chat["source"]) for chat in CONFIG]
+    return [parse_topic(chat["source"]) for chat in CONFIG if "source" in chat]
 
 
 def get_destenation(chat_id: int, topic_id: Optional[int] = None) -> List[ChatConfig]:
@@ -33,6 +33,8 @@ def get_destenation(chat_id: int, topic_id: Optional[int] = None) -> List[ChatCo
     dest: List[ChatConfig] = []
 
     for chat in CONFIG:
+        if "source" not in chat:
+            continue
         parsed = parse_topic(chat["source"])
 
         if parsed["chat_id"] == chat_id and parsed["thread_id"] == topic_id:
