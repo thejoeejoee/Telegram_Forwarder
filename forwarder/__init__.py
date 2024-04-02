@@ -2,18 +2,19 @@ import logging
 import json
 from os import getenv, path
 
+
 from dotenv import load_dotenv
-from telegram.ext import ApplicationBuilder
+from telegram.ext import ApplicationBuilder, Application
 
 load_dotenv(".env")
 
 
 logging.basicConfig(
-    format="[ %(asctime)s: %(levelname)-8s ] %(name)-20s - %(message)s",
     level=logging.INFO,
 )
 
 LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.INFO)
 
 httpx_logger = logging.getLogger('httpx')
 httpx_logger.setLevel(logging.WARNING)
@@ -34,4 +35,4 @@ if not BOT_TOKEN:
 OWNER_ID = int(getenv("OWNER_ID", "0"))
 REMOVE_TAG = getenv("REMOVE_TAG", "False") in {"true", "True", 1}
 
-bot = ApplicationBuilder().token(BOT_TOKEN).build()
+bot: Application = ApplicationBuilder().token(BOT_TOKEN).build()
